@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Unit Converter - แปลงหน่วยออนไลน์</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style/main.css">
+</head>
+<body class="gradient-bg">
+  <div class="main-content">
+    <div class="container mx-auto px-2 sm:px-4 py-3 sm:py-5 max-w-7xl">
+      <!-- TOP BAR -->
+      <div class="glass-effect rounded-xl sm:rounded-2xl px-3 sm:px-4 md:px-6 py-3 sm:py-4 mb-4 sm:mb-6 animate-fade-in">
+        <div class="flex items-center gap-4">
+          <div class="title-block flex-1 min-w-0">
+            <div class="title-gradient top-title leading-tight">
+              Unit Converter <span class="text-dynamic-secondary font-semibold">(แปลงหน่วย)</span>
+            </div>
+            <div class="text-dynamic-secondary top-subtitle mt-1">
+              Convert units easily and quickly <span class="text-dynamic-muted">(แปลงหน่วยได้ง่ายและรวดเร็ว)</span>
+            </div>
+          </div>
+          <div class="shrink-0">
+            <select id="themeSelect" class="text-dynamic-primary text-sm focus:outline-none cursor-pointer">
+              <option value="mint">🍃 Mint (Default)</option>
+              <option value="ocean">🌊 Ocean</option>
+              <option value="sunset">🌅 Sunset</option>
+              <option value="forest">🌲 Forest</option>
+              <option value="purple">💜 Purple</option>
+              <option value="dark">🌙 Dark</option>
+              <option value="neon">⚡ Neon</option>
+              <option value="rose">🌹 Rose</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <!-- /TOP BAR -->
+
+      <!-- MAIN GRID: widen sidebar to 5/12 on XL -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-4 sm:gap-6 lg:gap-8">
+        <!-- Main Converter -->
+        <div class="xl:col-span-7">
+          <div class="glass-effect rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 mb-4 sm:mb-6 animate-fade-in">
+            <div class="mb-4 sm:mb-6">
+              <label class="block text-dynamic-primary font-semibold mb-2 sm:mb-3 text-sm sm:text-base">
+                Select Conversion Type <span class="text-dynamic-secondary font-normal">(เลือกประเภทการแปลง)</span>
+              </label>
+              <select id="categorySelect" class="w-full p-2 sm:p-3 rounded-lg bg-white text-gray-900 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base">
+                <option value="length">Length (ความยาว)</option>
+                <option value="weight">Weight (น้ำหนัก)</option>
+                <option value="temperature">Temperature (อุณหภูมิ)</option>
+                <option value="area">Area (พื้นที่)</option>
+                <option value="volume">Volume (ปริมาตร)</option>
+                <option value="speed">Speed (ความเร็ว)</option>
+                <option value="time">Time (เวลา)</option>
+                <option value="digital">Digital Data (ข้อมูลดิจิทัล)</option>
+                <option value="energy">Energy (พลังงาน)</option>
+                <option value="pressure">Pressure (ความดัน)</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 sm:gap-6 items-center">
+              <div class="sm:col-span-2 space-y-2 sm:space-y-3">
+                <label class="block text-dynamic-primary font-semibold text-sm sm:text-base">
+                  From <span class="text-dynamic-secondary font-normal">(จาก)</span>
+                </label>
+                <select id="fromUnit" class="w-full p-2 sm:p-3 rounded-lg bg-white text-gray-900 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"></select>
+                <input id="fromValue" type="number" placeholder="Enter value to convert (ใส่ค่าที่ต้องการแปลง)"
+                  class="w-full p-2 sm:p-3 rounded-lg bg-white/90 text-gray-900 placeholder-gray-500 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base">
+              </div>
+
+              <div class="sm:col-span-1 flex justify-center items-center">
+              <button id="swapBtn"
+                class="bg-white/20 hover:bg-white/30 text-dynamic-primary p-3 sm:p-4 rounded-full transition-all duration-300 transform hover:scale-110 hover:rotate-180 focus:outline-none focus:ring-2 focus:ring-white/50 shadow-xl border border-white/30 backdrop-blur-sm text-lg sm:text-xl">
+                ⇄
+              </button>
+              </div>
+
+              <div class="sm:col-span-2 space-y-2 sm:space-y-3">
+                <label class="block text-dynamic-primary font-semibold text-sm sm:text-base">
+                  To <span class="text-dynamic-secondary font-normal">(เป็น)</span>
+                </label>
+                <select id="toUnit" class="w-full p-2 sm:p-3 rounded-lg bg-white text-gray-900 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"></select>
+                <input id="toValue" type="text" readonly placeholder="Result (ผลลัพธ์)"
+                  class="w-full p-2 sm:p-3 rounded-lg bg-white/80 text-gray-900 placeholder-gray-600 border border-white/30 cursor-not-allowed text-sm sm:text-base">
+              </div>
+            </div>
+
+            <div class="text-center mt-4 sm:mt-6">
+              <button id="convertBtn" class="bg-white/20 hover:bg-white/30 text-dynamic-primary font-semibold py-2 sm:py-3 px-6 sm:px-8 rounded-lg transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-white/50 text-sm sm:text-base">
+                Convert Units <span class="text-dynamic-secondary font-normal">(แปลงหน่วย)</span>
+              </button>
+            </div>
+
+            <div id="resultDisplay" class="mt-4 sm:mt-6 p-3 sm:p-4 bg-white/10 rounded-lg hidden">
+              <div class="text-center">
+                <div id="resultText" class="text-lg sm:text-xl md:text-2xl font-bold text-dynamic-primary mb-1 sm:mb-2 break-words"></div>
+                <div id="resultFormula" class="text-dynamic-secondary text-sm sm:text-base"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-effect rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 animate-fade-in">
+            <h3 class="text-lg sm:text-xl font-semibold text-dynamic-primary mb-3 sm:mb-4">
+              Quick Conversions <span class="text-dynamic-secondary font-normal">(การแปลงด่วน)</span>
+            </h3>
+            <div id="quickConversions" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 sm:gap-3"></div>
+          </div>
+        </div>
+
+        <!-- Sidebar wider (History + Export) -->
+        <div class="xl:col-span-5">
+          <!-- Conversion History -->
+          <div class="glass-effect rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 animate-fade-in">
+            <!-- Header: allow wrapping of the title; keep Clear on the same row -->
+            <div class="flex items-start justify-between gap-3 mb-3 sm:mb-4">
+              <h3 class="text-lg sm:text-xl font-semibold text-dynamic-primary leading-snug break-words">
+                Conversion History <span class="text-dynamic-secondary font-normal">(ประวัติการแปลง)</span>
+              </h3>
+              <button id="clearHistory" class="text-dynamic-muted hover:text-dynamic-primary text-xs sm:text-sm whitespace-nowrap flex-shrink-0 transition-colors">
+                🗂️ Clear <span class="text-dynamic-secondary">(ล้าง)</span>
+              </button>
+            </div>
+            <div id="historyList" class="space-y-2 sm:space-y-3 max-h-64 sm:max-h-80 md:max-h-96 overflow-y-auto overflow-x-hidden">
+              <div class="text-dynamic-muted text-center py-6 sm:py-8 text-sm sm:text-base">
+                No conversion history yet <span class="text-dynamic-secondary">(ยังไม่มีประวัติการแปลง)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Export Data (same width as History by layout) -->
+          <div class="glass-effect rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 mt-4 sm:mt-6 animate-fade-in">
+            <h3 class="text-lg sm:text-xl font-semibold text-dynamic-primary mb-3 sm:mb-4 leading-snug break-words">
+              Export Data <span class="text-dynamic-secondary font-normal">(ส่งออกข้อมูล)</span>
+            </h3>
+            <div class="space-y-2 sm:space-y-3">
+              <button id="exportJSON" class="w-full bg-blue-500/20 hover:bg-blue-500/30 text-dynamic-primary py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base">
+                📋 Export JSON <span class="text-dynamic-secondary">(ส่งออก JSON)</span>
+              </button>
+              <button id="exportCSV" class="w-full bg-green-500/20 hover:bg-green-500/30 text-dynamic-primary py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base">
+                📈 Export CSV <span class="text-dynamic-secondary">(ส่งออก CSV)</span>
+              </button>
+              <input id="importFile" type="file" accept=".json" class="hidden">
+              <button id="importJSON" class="w-full bg-purple-500/20 hover:bg-purple-500/30 text-dynamic-primary py-2 px-3 sm:px-4 rounded-lg transition-colors text-sm sm:text-base">
+                📂 Import JSON <span class="text-dynamic-secondary">(นำเข้า JSON)</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /grid -->
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="mt-auto footer-bar">
+    <div class="text-center py-4">
+      <p class="text-dynamic-muted text-sm">© 2025 Unit Converter. All rights reserved | Developed by Thanetphon026</p>
+    </div>
+  </footer>
+
+  <script src="javascript/app.js"></script>
+</body>
+</html>
+
